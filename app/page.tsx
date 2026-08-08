@@ -1,13 +1,39 @@
+"use client";
+
+import { useState } from "react";
+
 import Header from "@/components/Header";
 import TaskStats from "@/components/TaskStats";
 import FilterButtons from "@/components/FilterButtons";
 import TaskList from "@/components/TaskList";
-import { tasks } from "@/data/tasks";
 import TaskForm from "@/components/TaskForm";
 
+import { tasks as initialTasks } from "@/data/tasks";
+
 export default function Home() {
+
+  const [tasks, setTasks] = useState(initialTasks);
+
+  const addTask = (
+    title: string,
+    description: string,
+    priority: string
+  ) => {
+
+    const newTask = {
+      id: Date.now(),
+      title,
+      description,
+      completed: false,
+      priority,
+    };
+
+    setTasks([...tasks, newTask]);
+  };
+
   return (
     <main className="min-h-screen bg-gray-100 py-10 px-4">
+
       <div className="max-w-4xl mx-auto">
 
         <Header />
@@ -21,10 +47,11 @@ export default function Home() {
         <FilterButtons activeFilter="All" />
 
         <TaskList tasks={tasks} />
-        <TaskList tasks={tasks} />
 
-<TaskForm />
+        <TaskForm onAddTask={addTask} />
+
       </div>
+
     </main>
   );
 }
