@@ -37,14 +37,14 @@ export default function TaskCard({
       <div className="mt-4 flex justify-between items-center">
 
         <div>
-          <p>
-            <strong>Status:</strong>{" "}
-            {completed ? "Completed ✅" : "Pending"}
-          </p>
+          <p className="text-black">
+  <strong>Status:</strong>{" "}
+  {completed ? "Completed ✅" : "Pending"}
+</p>
 
-          <p>
-            <strong>Priority:</strong> {priority}
-          </p>
+<p className="text-black">
+  <strong>Priority:</strong> {priority}
+</p>
         </div>
 
         <div className="flex gap-3">
