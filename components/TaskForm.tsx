@@ -28,8 +28,8 @@ export default function TaskForm({ onAddTask }: TaskFormProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-      <h2 className="text-xl font-bold mb-4">Add New Task</h2>
+    <div className="bg-white rounded-lg shadow-md p-6 mt-6 text-black">
+      <h2 className="text-xl font-bold mb-4 text-black">Add New Task</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
 
@@ -59,7 +59,7 @@ export default function TaskForm({ onAddTask }: TaskFormProps) {
         </select>
 
         <button
-          className="bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700"
+          className="bg-blue-600 text-black px-5 py-3 rounded-lg hover:bg-blue-700"
         >
           Add Task
         </button>
