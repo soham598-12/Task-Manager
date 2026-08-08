@@ -11,7 +11,6 @@ import TaskForm from "@/components/TaskForm";
 import { tasks as initialTasks } from "@/data/tasks";
 
 export default function Home() {
-
   const [tasks, setTasks] = useState(initialTasks);
 
   const addTask = (
@@ -19,7 +18,6 @@ export default function Home() {
     description: string,
     priority: string
   ) => {
-
     const newTask = {
       id: Date.now(),
       title,
@@ -31,9 +29,24 @@ export default function Home() {
     setTasks([...tasks, newTask]);
   };
 
+  const toggleTask = (id: number) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id
+          ? { ...task, completed: !task.completed }
+          : task
+      )
+    );
+  };
+
+  const deleteTask = (id: number) => {
+    setTasks(
+      tasks.filter((task) => task.id !== id)
+    );
+  };
+
   return (
     <main className="min-h-screen bg-gray-100 py-10 px-4">
-
       <div className="max-w-4xl mx-auto">
 
         <Header />
@@ -46,12 +59,15 @@ export default function Home() {
 
         <FilterButtons activeFilter="All" />
 
-        <TaskList tasks={tasks} />
+        <TaskList
+          tasks={tasks}
+          onToggle={toggleTask}
+          onDelete={deleteTask}
+        />
 
         <TaskForm onAddTask={addTask} />
 
       </div>
-
     </main>
   );
 }
