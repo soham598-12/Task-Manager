@@ -1,7 +1,8 @@
 import Header from "@/components/Header";
 import TaskStats from "@/components/TaskStats";
 import FilterButtons from "@/components/FilterButtons";
-import TaskCard from "@/components/TaskCard";
+import TaskList from "@/components/TaskList";
+import { tasks } from "@/data/tasks";
 
 export default function Home() {
   return (
@@ -11,19 +12,14 @@ export default function Home() {
         <Header />
 
         <TaskStats
-          total={4}
-          completed={2}
-          pending={2}
+          total={tasks.length}
+          completed={tasks.filter(task => task.completed).length}
+          pending={tasks.filter(task => !task.completed).length}
         />
 
         <FilterButtons activeFilter="All" />
 
-        <TaskCard
-          title="Learn Next.js Components"
-          description="Complete the assignment on components and state."
-          completed={false}
-          priority="High"
-        />
+        <TaskList tasks={tasks} />
 
       </div>
     </main>
