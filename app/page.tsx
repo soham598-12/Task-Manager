@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Header from "@/components/Header";
 import TaskStats from "@/components/TaskStats";
@@ -11,9 +11,23 @@ import TaskForm from "@/components/TaskForm";
 import { tasks as initialTasks } from "@/data/tasks";
 
 export default function Home() {
-  const [tasks, setTasks] = useState(initialTasks);
 
+  const [tasks, setTasks] = useState(initialTasks);
   const [filter, setFilter] = useState("All");
+
+  // Load tasks from localStorage
+  useEffect(() => {
+    const savedTasks = localStorage.getItem("tasks");
+
+    if (savedTasks) {
+      setTasks(JSON.parse(savedTasks));
+    }
+  }, []);
+
+  // Save tasks whenever they change
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   const addTask = (
     title: string,
@@ -42,9 +56,7 @@ export default function Home() {
   };
 
   const deleteTask = (id: number) => {
-    setTasks(
-      tasks.filter((task) => task.id !== id)
-    );
+    setTasks(tasks.filter((task) => task.id !== id));
   };
 
   const filteredTasks =
