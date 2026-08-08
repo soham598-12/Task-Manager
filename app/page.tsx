@@ -13,6 +13,8 @@ import { tasks as initialTasks } from "@/data/tasks";
 export default function Home() {
   const [tasks, setTasks] = useState(initialTasks);
 
+  const [filter, setFilter] = useState("All");
+
   const addTask = (
     title: string,
     description: string,
@@ -45,6 +47,13 @@ export default function Home() {
     );
   };
 
+  const filteredTasks =
+    filter === "All"
+      ? tasks
+      : filter === "Completed"
+      ? tasks.filter((task) => task.completed)
+      : tasks.filter((task) => !task.completed);
+
   return (
     <main className="min-h-screen bg-gray-100 py-10 px-4">
       <div className="max-w-4xl mx-auto">
@@ -53,14 +62,17 @@ export default function Home() {
 
         <TaskStats
           total={tasks.length}
-          completed={tasks.filter(task => task.completed).length}
-          pending={tasks.filter(task => !task.completed).length}
+          completed={tasks.filter((task) => task.completed).length}
+          pending={tasks.filter((task) => !task.completed).length}
         />
 
-        <FilterButtons activeFilter="All" />
+        <FilterButtons
+          activeFilter={filter}
+          onFilterChange={setFilter}
+        />
 
         <TaskList
-          tasks={tasks}
+          tasks={filteredTasks}
           onToggle={toggleTask}
           onDelete={deleteTask}
         />
