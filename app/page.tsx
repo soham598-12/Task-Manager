@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import TaskStats from "@/components/TaskStats";
 import FilterButtons from "@/components/FilterButtons";
+import TaskCard from "@/components/TaskCard";
 
 export default function Home() {
   return (
@@ -16,6 +17,13 @@ export default function Home() {
         />
 
         <FilterButtons activeFilter="All" />
+
+        <TaskCard
+          title="Learn Next.js Components"
+          description="Complete the assignment on components and state."
+          completed={false}
+          priority="High"
+        />
 
       </div>
     </main>
