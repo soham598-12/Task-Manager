@@ -3,6 +3,7 @@ import TaskStats from "@/components/TaskStats";
 import FilterButtons from "@/components/FilterButtons";
 import TaskList from "@/components/TaskList";
 import { tasks } from "@/data/tasks";
+import TaskForm from "@/components/TaskForm";
 
 export default function Home() {
   return (
@@ -20,7 +21,9 @@ export default function Home() {
         <FilterButtons activeFilter="All" />
 
         <TaskList tasks={tasks} />
+        <TaskList tasks={tasks} />
 
+<TaskForm />
       </div>
     </main>
   );
