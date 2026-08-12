@@ -1,3 +1,4 @@
+import Link from "next/link";
 type TaskCardProps = {
   id: number;
   title: string;
@@ -48,14 +49,19 @@ export default function TaskCard({
         </div>
 
         <div className="flex gap-3">
-
+        <Link
+  href={`/tasks/${id}`}
+  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+>
+  View Details
+</Link>
           <button
             onClick={() => onToggle(id)}
             className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
           >
             {completed ? "Mark Pending" : "Mark Completed"}
           </button>
-
+          
           <button
             onClick={() => onDelete(id)}
             className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
