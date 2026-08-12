@@ -1,18 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams ,useRouter} from "next/navigation";
 import { useTasks } from "../../context/TaskContext";
 
 export default function TaskDetailsPage() {
   const params = useParams();
-
+  const router = useRouter();
   const { tasks, toggleTask, deleteTask } = useTasks();
 
   const id = Number(params.id);
 
   const task = tasks.find((task) => task.id === id);
-
+    
   if (!task) {
     return (
       <main className="min-h-screen bg-gray-100 p-8">
@@ -41,6 +41,19 @@ export default function TaskDetailsPage() {
       </main>
     );
   }
+  const handleDelete = () => {
+  const confirmed = window.confirm(
+    "Are you sure you want to delete this task?"
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
+  deleteTask(task.id);
+
+  router.push("/tasks");
+};
 
   return (
     <main className="min-h-screen bg-gray-100 p-8">
@@ -135,19 +148,11 @@ export default function TaskDetailsPage() {
             </button>
 
             <button
-              onClick={() => {
-                const confirmed = window.confirm(
-                  "Are you sure you want to delete this task?"
-                );
-
-                if (confirmed) {
-                  deleteTask(task.id);
-                }
-              }}
-              className="bg-red-600 text-white px-5 py-3 rounded-lg hover:bg-red-700"
-            >
-              Delete
-            </button>
+                onClick={handleDelete}
+                className="bg-red-600 text-white px-5 py-3 rounded-lg hover:bg-red-700"
+                >
+                Delete
+                </button>
 
           </div>
 
@@ -157,4 +162,5 @@ export default function TaskDetailsPage() {
 
     </main>
   );
+  
 }

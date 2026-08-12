@@ -63,11 +63,19 @@ export default function TaskCard({
           </button>
           
           <button
-            onClick={() => onDelete(id)}
-            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-          >
-            Delete
-          </button>
+              onClick={() => {
+                const confirmed = window.confirm(
+                  "Are you sure you want to delete this task?"
+                );
+
+                if (confirmed) {
+                  onDelete(id);
+                }
+              }}
+              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+            >
+              Delete
+            </button>
 
         </div>
 
