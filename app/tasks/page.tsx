@@ -1,16 +1,15 @@
 "use client";
 
-import { useState } from "react";
-
 import Header from "@/components/Header";
 import TaskStats from "@/components/TaskStats";
 import FilterButtons from "@/components/FilterButtons";
 import TaskList from "@/components/TaskList";
 import TaskForm from "@/components/TaskForm";
 
-import { useTasks } from "./context/TaskContext";
+import { useState } from "react";
+import { useTasks } from "../context/TaskContext";
 
-export default function Home() {
+export default function TasksPage() {
   const {
     tasks,
     addTask,
@@ -46,33 +45,31 @@ export default function Home() {
   });
 
   return (
-    <main className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-5xl mx-auto">
+  <main className="min-h-screen bg-gray-100 p-8">
+    <div className="max-w-5xl mx-auto">
 
-        <Header />
+      <h1 className="text-3xl font-bold text-black mb-6">
+        All Tasks
+      </h1>
 
-        <TaskStats
-          total={tasks.length}
-          completed={completedCount}
-          pending={pendingCount}
-        />
+      <TaskStats
+        total={tasks.length}
+        completed={completedCount}
+        pending={pendingCount}
+      />
 
-        <FilterButtons
-          activeFilter={activeFilter}
-          onFilterChange={setActiveFilter}
-        />
+      <FilterButtons
+        activeFilter={activeFilter}
+        onFilterChange={setActiveFilter}
+      />
 
-        <TaskList
-          tasks={filteredTasks}
-          onToggle={toggleTask}
-          onDelete={deleteTask}
-        />
+      <TaskList
+        tasks={filteredTasks}
+        onToggle={toggleTask}
+        onDelete={deleteTask}
+      />
 
-        <TaskForm
-          onAddTask={addTask}
-        />
-
-      </div>
-    </main>
-  );
+    </div>
+  </main>
+);
 }
