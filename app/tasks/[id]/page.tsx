@@ -119,7 +119,12 @@ export default function TaskDetailsPage() {
           </div>
 
           <div className="flex gap-3 mt-8">
-
+            <Link
+  href={`/tasks/${task.id}/edit`}
+  className="bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700"
+>
+  Edit Task
+</Link>
             <button
               onClick={() => toggleTask(task.id)}
               className="bg-green-600 text-white px-5 py-3 rounded-lg hover:bg-green-700"
