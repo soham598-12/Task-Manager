@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import Header from "@/components/Header";
 import TaskStats from "@/components/TaskStats";
 import FilterButtons from "@/components/FilterButtons";
@@ -47,7 +47,11 @@ export default function TasksPage() {
   return (
   <main className="min-h-screen bg-gray-100 p-8">
     <div className="max-w-5xl mx-auto">
-
+        <Link href="/"
+            className="inline-block mb-6 text-blue-600 hover:underline font-medium"
+            >
+            ← Back to Dashboard
+            </Link>
       <h1 className="text-3xl font-bold text-black mb-6">
         All Tasks
       </h1>
@@ -57,7 +61,7 @@ export default function TasksPage() {
         completed={completedCount}
         pending={pendingCount}
       />
-
+    
       <FilterButtons
         activeFilter={activeFilter}
         onFilterChange={setActiveFilter}

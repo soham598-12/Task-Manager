@@ -148,11 +148,11 @@ export default function TaskDetailsPage() {
             </button>
 
             <button
-                onClick={handleDelete}
-                className="bg-red-600 text-white px-5 py-3 rounded-lg hover:bg-red-700"
-                >
-                Delete
-                </button>
+  onClick={handleDelete}
+  className="bg-red-600 text-white px-5 py-3 rounded-lg hover:bg-red-700"
+>
+  Delete
+</button>
 
           </div>
 
