@@ -19,25 +19,36 @@ type Task = {
 
 type TaskContextType = {
   tasks: Task[];
+
   addTask: (
     title: string,
     description: string,
     priority: string
   ) => void;
+
   toggleTask: (id: number) => void;
+
   deleteTask: (id: number) => void;
-  updateTask: (id: number, updatedTask: Partial<Task>) => void;
+
+  updateTask: (
+    id: number,
+    updatedTask: Partial<Task>
+  ) => void;
 };
 
 const TaskContext = createContext<TaskContextType | undefined>(
   undefined
 );
 
-export function TaskProvider({ children }: { children: ReactNode }) {
+export function TaskProvider({
+  children,
+}: {
+  children: ReactNode;
+}) {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [initialized, setInitialized] = useState(false);
 
-  // Load tasks from localStorage
+  // LOAD TASKS FROM LOCAL STORAGE
   useEffect(() => {
     const storedTasks = localStorage.getItem("tasks");
 
@@ -54,6 +65,7 @@ export function TaskProvider({ children }: { children: ReactNode }) {
           priority: "High",
           createdAt: new Date().toISOString(),
         },
+
         {
           id: 2,
           title: "Explore Open Source Repositories",
@@ -63,6 +75,7 @@ export function TaskProvider({ children }: { children: ReactNode }) {
           priority: "Medium",
           createdAt: new Date().toISOString(),
         },
+
         {
           id: 3,
           title: "Practice React",
@@ -79,25 +92,35 @@ export function TaskProvider({ children }: { children: ReactNode }) {
     setInitialized(true);
   }, []);
 
-  // Save tasks to localStorage
+  // SAVE TASKS TO LOCAL STORAGE
   useEffect(() => {
     if (initialized) {
-      localStorage.setItem("tasks", JSON.stringify(tasks));
+      localStorage.setItem(
+        "tasks",
+        JSON.stringify(tasks)
+      );
     }
   }, [tasks, initialized]);
 
-  // CREATE
+  // CREATE TASK
   const addTask = (
     title: string,
     description: string,
     priority: string
   ) => {
+    const newId =
+      tasks.length > 0
+        ? Math.max(
+            ...tasks.map((task) => task.id)
+          ) + 1
+        : 1;
+
     const newTask: Task = {
-      id: Date.now(),
+      id: newId,
       title,
       description,
-      priority,
       completed: false,
+      priority,
       createdAt: new Date().toISOString(),
     };
 
@@ -121,10 +144,12 @@ export function TaskProvider({ children }: { children: ReactNode }) {
     );
   };
 
-  // DELETE
+  // DELETE TASK
   const deleteTask = (id: number) => {
     setTasks((currentTasks) =>
-      currentTasks.filter((task) => task.id !== id)
+      currentTasks.filter(
+        (task) => task.id !== id
+      )
     );
   };
 
